@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int gappx     = 4;        /* gaps between windows */
@@ -18,6 +20,15 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 };
+
+/* Volume commands */
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+
+/* Screen brightness commands */
+static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
+static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3" };
@@ -92,6 +103,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+  { 0,                            XF86XK_AudioLowerVolume,   spawn, {.v = downvol } },
+	{ 0,                            XF86XK_AudioMute,          spawn, {.v = mutevol } },
+	{ 0,                            XF86XK_AudioRaiseVolume,   spawn, {.v = upvol   } },
+  { 0,			                    	XF86XK_MonBrightnessUp,		 spawn,	{.v = light_up} },
+	{ 0,				                    XF86XK_MonBrightnessDown,  spawn,	{.v = light_down} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
