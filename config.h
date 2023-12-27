@@ -31,7 +31,7 @@ static const char *light_up[] = {"/usr/bin/light", "-A", "5", NULL};
 static const char *light_down[] = {"/usr/bin/light", "-U", "5", NULL};
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3" };
+static const char *tags[] = { "1", "2", "3", "4" };
 
 static const Rule rules[] = {
 	/* xprop(1):
